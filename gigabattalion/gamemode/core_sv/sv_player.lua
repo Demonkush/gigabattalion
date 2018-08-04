@@ -50,31 +50,29 @@ function GIGABAT.Functions.PlayerSpawn(ply)
 			end	
 		end
 	end
-	timer.Simple(0.1,function()
-		if IsValid(ply) then
-			ply.Ship = ents.Create("gigabat_ship")
-			ply.Ship:SetPos(spawnpos)
-			ply.Ship:Spawn()
-			ply.Ship:SetModel(data.model)
-			ply.Ship:Activate()
-			ply.Ship:SetOwner(ply)
-			GIGABAT.Functions.SetFrame(ply.Ship,ship)
-			GIGABAT.Functions.StatInitalize(ply.Ship)
-			GIGABAT.Functions.BuildLoadout(ply.Ship)
-			GIGABAT.Functions.SendShipSpec(ply,ply.Ship)
+	if IsValid(ply) then
+		ply.Ship = ents.Create("gigabat_ship")
+		ply.Ship:SetPos(spawnpos)
+		ply.Ship:Spawn()
+		ply.Ship:SetModel(data.model)
+		ply.Ship:Activate()
+		ply.Ship:SetOwner(ply)
+		GIGABAT.Functions.SetFrame(ply.Ship,ship)
+		GIGABAT.Functions.StatInitalize(ply.Ship)
+		GIGABAT.Functions.BuildLoadout(ply.Ship)
+		GIGABAT.Functions.SendShipSpec(ply,ply.Ship)
 
-			GIGABAT.Functions.Notification("Spawned as "..data.name,Color(35,55,75),ply,false)
-			ply:Spawn()
-			ply:Spectate(OBS_MODE_CHASE)
-			ply:SpectateEntity(ply.Ship)
+		GIGABAT.Functions.Notification("Spawned as "..data.name,Color(35,55,75),ply,false)
+		ply:Spawn()
+		ply:Spectate(OBS_MODE_CHASE)
+		ply:SpectateEntity(ply.Ship)
 
-			if GIGABAT.Round.State == GIGABAT_ROUND_ACTIVE then
-				net.Start("GigabatSendRoundTimer")
-					net.WriteInt(timer.TimeLeft("GIGABATRoundTimer"),32)
-				net.Send(ply)
-			end
+		if GIGABAT.Round.State == GIGABAT_ROUND_ACTIVE then
+			net.Start("GigabatSendRoundTimer")
+				net.WriteInt(timer.TimeLeft("GIGABATRoundTimer"),32)
+			net.Send(ply)
 		end
-	end)
+	end
 end
 
 function GIGABAT.Functions.Notification(str,col,ply,global)
