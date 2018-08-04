@@ -1,0 +1,6 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "gigabattalion/objects/satellite_ring"
+	"$surfaceprop" "metal"
+	"$bumpmap" "gigabattalion/objects/satellite_ring_normal"
+}

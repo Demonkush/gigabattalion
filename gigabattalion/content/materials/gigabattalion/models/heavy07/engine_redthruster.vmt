@@ -1,0 +1,5 @@
+"unlitgeneric"
+{
+	"$basetexture" "gigabattalion/engines/engine_redthruster"
+	"$surfaceprop" "metal"
+}

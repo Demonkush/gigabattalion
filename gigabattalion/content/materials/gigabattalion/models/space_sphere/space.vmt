@@ -1,0 +1,6 @@
+"unlitgeneric"
+{
+	"$basetexture" "gigabattalion/models/space_sphere/space"
+	"$nocull" "1"
+	"$translucent" "1"
+}

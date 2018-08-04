@@ -1,0 +1,5 @@
+"vertexlitgeneric"
+{
+	"$basetexture" "gigabattalion/skins/gold_window"
+	"$surfaceprop" "metal"
+}

@@ -1,0 +1,5 @@
+"LightmappedGeneric"
+{
+	"$basetexture" "gigabattalion/objects/satellite_panel"
+	"$surfaceprop" "glass"
+}

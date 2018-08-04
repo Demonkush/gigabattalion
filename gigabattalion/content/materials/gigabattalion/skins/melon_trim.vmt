@@ -1,0 +1,6 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "gigabattalion/skins/melon_trim"
+	"$surfaceprop" "metal"
+	"$bumpmap" "gigabattalion/skins/crimson_trim_normal"
+}

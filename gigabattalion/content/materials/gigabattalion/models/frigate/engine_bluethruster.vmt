@@ -1,0 +1,5 @@
+"vertexlitgeneric"
+{
+	"$basetexture" "gigabattalion/engines/engine_bluethruster"
+	"$surfaceprop" "metal"
+}

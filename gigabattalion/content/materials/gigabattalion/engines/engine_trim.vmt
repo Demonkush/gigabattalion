@@ -1,0 +1,5 @@
+"LightmappedGeneric"
+{
+	"$basetexture" "gigabattalion/engines/engine_trim"
+	"$surfaceprop" "metal"
+}

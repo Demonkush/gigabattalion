@@ -1,0 +1,6 @@
+"LightmappedGeneric"
+{
+	"$basetexture" "gigabattalion/objects/asteroid"
+	"$surfaceprop" "rock"
+	"$bumpmap"		"gigabattalion/objects/asteroid_normal"
+}

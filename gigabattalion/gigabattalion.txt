@@ -1,0 +1,7 @@
+"gigabattalion"
+{
+	"base"		"base"
+	"title"		"Gigabattalion"
+	"maps"		"^gigabat_"
+	"menusystem"	"1"
+}

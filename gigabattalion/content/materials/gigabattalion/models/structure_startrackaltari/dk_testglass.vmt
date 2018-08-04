@@ -1,0 +1,17 @@
+unlitgeneric
+{
+	$model 1 
+	$basetexture "gigabattalion\models\structure_startrackaltari\dk_testglass"
+	$surfaceprop glass
+	$translucent 1
+
+	"proxies"
+	{
+		"texturescroll"
+		{
+			"texturescrollvar" "$basetexturetransform"
+			"texturescrollrate" "0.2"
+			"texturescrollangle" "90.00"
+		}
+	}
+}

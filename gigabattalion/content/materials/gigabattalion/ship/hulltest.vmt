@@ -1,0 +1,6 @@
+"LightmappedGeneric"
+{
+	"$basetexture" "gigabattalion/ship/hulltest"
+	"$surfaceprop" "metal"
+	"$bumpmap" "gigabattalion/ship/hulltest_normal"
+}
