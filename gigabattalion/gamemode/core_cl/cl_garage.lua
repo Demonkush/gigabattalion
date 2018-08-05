@@ -128,7 +128,7 @@ function GIGABAT.Functions.OpenGarage()
 			deaths 			= {txt="Deaths",val=stats.deaths}
 		}
 		if IsValid(GIGABAT.Garage.Container.PlayerInfo) then GIGABAT.Garage.Container.PlayerInfo:Remove() end
-		GIGABAT.Garage.Container.PlayerInfo = CreateInfoMenu(parent,"Player Stats",50,315,300,150)
+		GIGABAT.Garage.Container.PlayerInfo = CreateInfoMenu(parent,"Player Stats",50,175,300,150)
 		local margin = 5
 		for a, b in pairs(stattable) do
 			local value = b.val or 0
@@ -149,7 +149,7 @@ function GIGABAT.Functions.OpenGarage()
 			players 		= {txt="Players Online",val=#player.GetAll()},
 		}
 		if IsValid(GIGABAT.Garage.Container.GameInfo) then GIGABAT.Garage.Container.GameInfo:Remove() end
-		GIGABAT.Garage.Container.GameInfo = CreateInfoMenu(parent,"Game Info",50,485,300,150)
+		GIGABAT.Garage.Container.GameInfo = CreateInfoMenu(parent,"Game Info",50,335,300,150)
 		local margin = 5
 		for a, b in pairs(gametable) do
 			local value = b.val or 0
@@ -274,8 +274,8 @@ function GIGABAT.Functions.OpenGarage()
 			local strs = {
 				"In GIGABATTALION, you pilot space combat ships in\n different scenarios, completing different objectives\n based on gametype.",
 				"For example, in the Asteroids gametype you will\n destroy asteroids to gain score, which will in turn\n reward you with Tokens after 25 points by default.",
-				"Your statistics, owned ships, and owned skins save permanently.",
-				"Use Tokens to buy new ships and skins!",
+				"Your statistics, owned ships, and owned skins save permanently.\n Use Tokens to buy new ships and skins!",
+				"2 Players are needed to start a round.\n You wont earn tokens unless the round starts!",
 				"F1 opens the main menu, this gives you\n access to the Garage and Options menus.",
 				"Refer to the Controls button in the\n Garage to understand the control systems.",
 			}
@@ -1166,7 +1166,7 @@ function GIGABAT.Functions.OpenGarage()
 			surface.PlaySound(selectsound)
 			OpenItemMenu("backgrounds")
 		end)
-		local margin2 = 180
+		local margin2 = 500
 		CreateGarageTextButton(100,margin2,"Objective",Color(155,215,255,255),function()
 			surface.PlaySound(selectsound)
 			OpenItemMenu("objective")

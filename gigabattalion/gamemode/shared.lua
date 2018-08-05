@@ -104,7 +104,7 @@ end
 
 function GIGABAT.Functions.ApplySkin(ent,skin)
 	local skin = GIGABAT.Functions.GetSkin(skin)
-
+	if skin == nil then return end
 	local path = "gigabattalion/skins/"
 	local mdl = ent:GetModel()
 	mdl = string.TrimRight(mdl,".mdl") mdl = string.TrimLeft(mdl,"models/gigabattalion/")

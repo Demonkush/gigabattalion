@@ -563,6 +563,7 @@ if CLIENT then
 	function ENT:CreateBody()
 		self.Body = ClientsideModel(self:GetModel(),RENDERGROUP_TRANSLUCENT)
 		self.Body:SetPos(self:GetPos())
+		self.Body.CriticalScale = 0
 		self.Thrusters = {}
 		for a, b in pairs(self:GetAttachments()) do if string.match(b.name,"thruster") then table.insert(self.Thrusters,b.id) end end
 		self.Body:SetMaterial("Models/effects/vol_light001")
@@ -603,7 +604,6 @@ if CLIENT then
 		self:RemoveBody()
 		self:CreateBody()
 		self.Emitter = ParticleEmitter(self:GetPos())
-		self.CriticalScale = 0
 		self.ShieldPokeScale = 0
 		self.NextEmit = 0
 		self.NextEmit2 = 0
@@ -626,6 +626,8 @@ if CLIENT then
 					self.ShieldPokeObj = nil
 				end
 			end
+		else
+			self:CreateBody()
 		end
 	end
 
@@ -661,9 +663,9 @@ if CLIENT then
 			end
 			if self.Stealthed then return end
 			if self:GetNWInt("Armor") <= 0 then
-				self.CriticalScale = self.CriticalScale + FrameTime()*256
+				self.Body.CriticalScale = self.Body.CriticalScale + FrameTime()*256
 				render.SetMaterial(glow)
-				render.DrawSprite(self.Body:GetPos(),self.CriticalScale*2,self.CriticalScale*2,Color(255,185,135,math.random(0,255)))	
+				render.DrawSprite(self.Body:GetPos(),self.Body.CriticalScale*2,self.Body.CriticalScale*2,Color(255,185,135,math.random(0,255)))	
 			end
 			if self:GetNWBool("OnFire") then
 				local rando = math.random(1,3)
