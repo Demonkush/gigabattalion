@@ -5,6 +5,7 @@ GIGABAT.Functions.AddGametype("classic",
 		"derelict",
 		"derelict2",
 		"metalith",
+		"deltanis"
 	},
 	function()
 		GIGABAT.Config.ObjectiveTitle = "Destroy"

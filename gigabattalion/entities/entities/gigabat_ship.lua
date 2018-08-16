@@ -163,13 +163,18 @@ if SERVER then
 		end
 	end
 
-	function ENT:FixAngles()
+	function ENT:FixAngles(mode)
 		if self.Speed < 5 then return end
 		local phys = self:GetPhysicsObject()
 		local ang = self:GetOwner():EyeAngles()
 		local drag = self.DragSpeed + GIGABAT.Config.GlobalDragSpeed
 		if IsValid(phys) then
-			phys:SetAngles(LerpAngle(drag,phys:GetAngles(),ang+Angle(180,0,180+self:GetNWInt("Rotation"))))
+			if mode then
+				ang = ang+Angle(180,0,180+self:GetNWInt("Rotation"))
+			else
+				ang = phys:GetAngles()
+			end
+			phys:SetAngles(LerpAngle(drag,phys:GetAngles(),ang))
 		end
 	end
 
@@ -197,7 +202,7 @@ if SERVER then
 		if IsValid(ply) then
 			ply:SetPos(self:GetPos())
 			self:FixGunPositions()
-			self:FixAngles()
+			self:FixAngles(!ply:KeyDown(IN_WALK))
 			local phys = self:GetPhysicsObject()
 			if IsValid(phys) then
 				-- ACTION: Attack
@@ -210,13 +215,13 @@ if SERVER then
 					if IsValid(ply.gb_Target) then
 						GIGABAT.Functions.UpdateTarget(ply)
 					end
-					self.NextUpdateTarget = CurTime() + 0.2
+					self.NextUpdateTarget = CurTime() + GIGABAT.Config.TargetUpdateInterval
 				end
 				-- ACTION: Target
 				if ply:KeyDown(IN_JUMP) then
 					if self.NextTarget < CurTime() then
 						GIGABAT.Functions.TraceTarget(ply)
-						self.NextTarget = CurTime() + 0.5
+						self.NextTarget = CurTime() + 0.25
 					end
 				end
 				-- ACTION: Force Reload
@@ -427,7 +432,7 @@ if SERVER then
 	end 
 	function ENT:PickupPowerup()
 		if self.NextPowerup > CurTime() then return end
-		self.NextPowerup = CurTime() + 0.5
+		self.NextPowerup = CurTime() + 0.25
 		for a, b in pairs(ents.FindInSphere(self:GetPos(),512)) do
 			if b:GetClass() == "gigabat_powerup" then
 				b:Grab(self)
@@ -635,6 +640,8 @@ if CLIENT then
 	local typeang = 0 
 	function ENT:Draw()
 		if FrameTime() <= 0 then return end
+		local speed = self:GetNWInt("Speed")
+		local armor = self:GetNWInt("Armor")
 		if IsValid(self:GetOwner()) then
 			if self:GetOwner():IsTyping() then
 				typeang = typeang + 1
@@ -662,7 +669,7 @@ if CLIENT then
 				return		
 			end
 			if self.Stealthed then return end
-			if self:GetNWInt("Armor") <= 0 then
+			if armor <= 0 then
 				self.Body.CriticalScale = self.Body.CriticalScale + FrameTime()*256
 				render.SetMaterial(glow)
 				render.DrawSprite(self.Body:GetPos(),self.Body.CriticalScale*2,self.Body.CriticalScale*2,Color(255,185,135,math.random(0,255)))	
@@ -684,7 +691,7 @@ if CLIENT then
 			end
 			local afterburner = self:GetNWBool("Afterburner")
 			if self:GetNWBool("Boosting") == true then
-				local thrustsize = math.Clamp(self:GetNWInt("Speed")/2,1,55)
+				local thrustsize = math.Clamp(speed/2,1,55)
 				if afterburner == true then thrustsize = thrustsize*10 end
 				local thrustrand = math.Rand(thrustsize,thrustsize*2)
 				local frame = GIGABAT.Frames[self:GetOwner():GetNWString("Gigabat_Frame")]
@@ -697,11 +704,11 @@ if CLIENT then
 								local fx = EffectData()
 								fx:SetOrigin(thrustpos)
 								fx:SetScale(thrustrand)
-								local speed = self:GetNWInt("Speed")/7.5
+								local speed = speed/7.5
 								if speed > 50 then fx:SetRadius(speed) else fx:SetRadius(0) end
 								fx:SetNormal(self.Body:GetAngles():Forward())
 								util.Effect(b.effect,fx)
-								if self:GetNWInt("Armor") < 50 then
+								if armor < 50 then
 									local rando = math.random(1,3)
 									if rando == 1 then
 										local flames = self.Emitter:Add("particles/flamelet"..math.random(1,3),thrustpos)
@@ -722,18 +729,20 @@ if CLIENT then
 					end
 				end
 			end
-			local thrustsize = math.Clamp(self:GetNWInt("Speed")/10,1,35)
+			local thrustsize = math.Clamp(speed/10,1,35)
 			local thrustrand = math.Rand(thrustsize*3,thrustsize*5)
 			if afterburner then
 				for a,b in pairs(self.Thrusters) do
-					local pos = self.Body:GetAttachment(b).Pos
-					render.SetMaterial(glow)
-					render.DrawSprite(pos,thrustrand*2,thrustrand*2,Color(255,215,195,255))
+					if self.Body:GetAttachment(b) != nil then
+						local pos = self.Body:GetAttachment(b).Pos
+						render.SetMaterial(glow)
+						render.DrawSprite(pos,thrustrand*2,thrustrand*2,Color(255,215,195,255))
+					end
 				end
 			end
 		end
 		if self:GetOwner() == LocalPlayer() then
-			if self:GetNWInt("Speed")/7.5 > 50 then
+			if speed/7.5 > 50 then
 				local starpos = EyePos()+(EyeAngles():Forward()*2048)
 				if RealTime() > self.NextEmit2 then
 					local stars = self.Emitter:Add("sprites/glow04_noz",starpos+(VectorRand()*1024))
@@ -741,7 +750,7 @@ if CLIENT then
 					stars:SetDieTime(0.6)
 					stars:SetStartAlpha(215)
 					stars:SetStartLength(0)
-					stars:SetEndLength(self:GetNWInt("Speed")*2)
+					stars:SetEndLength(speed*2)
 					stars:SetEndAlpha(0)
 					stars:SetStartSize(math.random(3,8))
 					stars:SetRoll(math.random(0,360))
@@ -752,9 +761,9 @@ if CLIENT then
 				end
 			end
 		end
-		if self:GetNWInt("Speed")/7.5 > 100 then
+		if speed/7.5 > 100 then
 			GIGABAT.Functions.StartMotionBlur()
-			GIGABAT.Functions.ModifyMotionBlur(self:GetNWInt("Speed")/5000,self:GetNWInt("Speed")/5000,0.01)
+			GIGABAT.Functions.ModifyMotionBlur(speed/5000,speed/5000,0.01)
 		else
 			GIGABAT.Functions.StopMotionBlur()
 		end

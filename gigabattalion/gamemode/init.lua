@@ -12,14 +12,15 @@ function GM:Initialize()
 end
 
 function GM:PlayerInitialSpawn(ply) 
+	ply:RemoveSuit()
 	ply:SetNWInt("Gigabat_Score",0)
 	ply:SetNWInt("Gigabat_Tokens",0)
 	ply:SetNWInt("Gigabat_Waypoint",1)
-	ply:SetNWString("Gigabat_Frame","fighter_stingray")
-	ply:SetNWString("Gigabat_Skin","common")
 	ply:SetNWBool("Gigabat_Spectating",true)
-	ply.gb_OwnedShips = {"fighter_stingray"}
-	ply.gb_OwnedSkins = {"common"}
+	ply:SetNWString("Gigabat_Frame",GIGABAT.Config.DefaultShip)
+	ply:SetNWString("Gigabat_Skin",GIGABAT.Config.DefaultSkin)
+	ply.gb_OwnedShips = {GIGABAT.Config.DefaultShip}
+	ply.gb_OwnedSkins = {GIGABAT.Config.DefaultSkin}
 	ply.gb_Ready = false
 	ply.gb_Target = nil
 	ply.gb_Loaded = false
@@ -44,7 +45,6 @@ function GM:PlayerInitialSpawn(ply)
 	local gametype = GIGABAT.Gametypes[GIGABAT.Config.GameType].name
 	GIGABAT.Functions.LoadPlayerData(ply)
 	ply:Spectate(OBS_MODE_ROAMING)
-	ply:RemoveSuit()
 end
 
 function GM:PlayerDeathThink(ply)
@@ -134,3 +134,17 @@ function GM:ShowHelp(ply)
 	net.Start("GigabatSendMenu")
 	net.Send(ply)
 end
+
+concommand.Add("gigabat_settokens",function(ply,cmd,args)
+	if ply:IsSuperAdmin() then
+		local target = tostring(args[1])
+		local tokens = tonumber(args[2])
+	
+		for a, b in pairs(player.GetAll()) do
+			if tostring(b:SteamID()) == target then
+				b:SetNWInt("Gigabat_Tokens",tokens)
+				GIGABAT.Functions.SavePlayerData(b)
+			end
+		end
+	end
+end)

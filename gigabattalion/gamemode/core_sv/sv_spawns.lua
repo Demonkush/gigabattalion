@@ -52,7 +52,8 @@ Spawners
 function GIGABAT.Functions.StartAsteroidSpawner()
 	if !GIGABAT.Config.Round.SpawnAsteroids then return end
 	timer.Create("gigabat_asteroidspawner",30,0,function()
-		local asteroid_count = #ents.FindByClass("gigabat_asteroid")
+		local asteroids = ents.FindByClass("gigabat_asteroid")
+		local asteroid_count = #asteroids
 		if asteroid_count < 20 then
 			for i=1,3 do
 				local randir = AngleRand():Forward()*8046
@@ -78,6 +79,16 @@ function GIGABAT.Functions.StartAsteroidSpawner()
 			local phys = asteroid:GetPhysicsObject()
 			if IsValid(phys) then
 				phys:SetVelocity(VectorRand()*256)
+			end
+		end
+		if asteroid_count > 30 then
+			local rand = math.random(1,asteroid_count)
+			for a, b in pairs(asteroids) do
+				if a == rand then
+					if IsValid(b) then
+						b:Explode()
+					end
+				end
 			end
 		end
 	end)

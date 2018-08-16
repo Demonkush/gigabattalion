@@ -87,8 +87,10 @@ function GIGABAT.Functions.OpenScoreboard()
 		playercard:SetPos(5,margin)
 		playercard:SetSize(frame:GetWide()-10,64)
 		playercard.Paint = function(self)
-			surface.SetDrawColor(team.GetColor(b:Team()))
-			surface.DrawRect(0,0,self:GetWide(),self:GetTall())
+			if IsValid(b) then
+				surface.SetDrawColor(team.GetColor(b:Team()))
+				surface.DrawRect(0,0,self:GetWide(),self:GetTall())
+			end
 		end
 		local avatar = vgui.Create("AvatarImage",playercard)
 		avatar:SetPos(2,2)
@@ -133,12 +135,14 @@ function GIGABAT.Functions.OpenScoreboard()
 		ping:SetPos(numar,32)
 
 		playercard.Think = function()
-			score:SetText(b:GetNWInt("Gigabat_Score"))
-			score:SizeToContents()
-			token:SetText(b:GetNWInt("Gigabat_Tokens"))
-			token:SizeToContents()
-			ping:SetText(b:Ping())
-			ping:SizeToContents()
+			if IsValid(b) then
+				score:SetText(b:GetNWInt("Gigabat_Score"))
+				score:SizeToContents()
+				token:SetText(b:GetNWInt("Gigabat_Tokens"))
+				token:SizeToContents()
+				ping:SetText(b:Ping())
+				ping:SizeToContents()
+			end
 		end
 
 		margin = margin + 70

@@ -17,8 +17,8 @@ GIGABAT.Functions.AddFrame(
 		tokencost = 3
 	},
 	{
-		{weapon="blaster_plasma",attach="gun1",slot="primary"},
-		{weapon="blaster_plasma",attach="gun2",slot="primary"},
+		{weapon="laser_heavyplasma",attach="gun1",slot="primary"},
+		{weapon="laser_heavyplasma",attach="gun2",slot="primary"},
 		{weapon="rocket_seeker",attach="gun3",slot="secondary"},	
 	},
 	{

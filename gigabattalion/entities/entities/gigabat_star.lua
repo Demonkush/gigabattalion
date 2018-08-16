@@ -131,7 +131,7 @@ if SERVER then
 			if IsValid(target) then
 				local phys = self:GetPhysicsObject()
 				if IsValid(phys) then
-					local dir = -(self:GetPos()-target:GetPos())
+					local dir = -(self:GetPos()-target:GetPos()):Angle():Forward()
 					phys:AddVelocity(dir*2)
 				end
 				for a, b in pairs(ents.FindInSphere(self:GetPos(),300)) do
@@ -181,8 +181,9 @@ if SERVER then
 		self.Hit = true
 
 		local star = self:GetNWString("StarType")
-
-		startable[star].explode(self)
+		if istable(startable[star]) then
+			startable[star].explode(self)
+		end
 
 		timer.Simple(0.01,function() if IsValid(self) then self:Remove() end end)
 	end

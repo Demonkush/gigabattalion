@@ -12,7 +12,7 @@ GIGABAT.Functions.AddFrame(
 		acceleration = 20,
 		dragspeed = 0.35,
 		turnspeed = 10,
-		enginesound = "ambient/tones/lab_loop1.wav",
+		enginesound = "ambient/levels/citadel/field_loop2.wav",
 		garagescale = 0.25,
 		tokencost = 3
 	},

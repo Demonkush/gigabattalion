@@ -1,5 +1,7 @@
 function GIGABAT.Functions.SendTarget(ply,ent)
+	if !IsValid(ply) then return end
 	ply.gb_Target = ent
+	if IsValid(ply.Ship) then ply.Ship.NextUpdateTarget = CurTime() + GIGABAT.Config.TargetUpdateInterval end
 	net.Start("GigabatReceiveTarget")
 		net.WriteEntity(ent)
 	net.Send(ply)

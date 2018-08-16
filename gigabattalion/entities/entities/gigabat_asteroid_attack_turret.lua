@@ -161,7 +161,7 @@ if CLIENT then
 		self.HealthPokeObj:SetAngles(self:GetAngles())
 		self.HealthPokeObj:SetPos(self:GetPos())
 		self.HealthPokeObj:SetColor(Color(255,0,0,255))
-		self.HealthPokeObj:SetModelScale(self.Body:GetModelScale()+0.01)
+		self.HealthPokeObj:SetModelScale(1.51)
 	end
 	function ENT:Draw()
 		--self:DrawModel()

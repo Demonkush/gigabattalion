@@ -4,9 +4,9 @@ GIGABAT.Functions.AddFrame(
 	"Slicer",
 	"models/gigabattalion/fighter03.mdl",
 	{
-		primarymultifire = true,
+		primarymultifire = false,
 		secondarymultifire = false,
-		hull = 100,
+		hull = 85,
 		shield = 85,
 		maxspeed = 915,
 		acceleration = 25,
@@ -20,6 +20,8 @@ GIGABAT.Functions.AddFrame(
 		{weapon="pulsar_photon",attach="gun1",slot="primary"},
 		{weapon="pulsar_photon",attach="gun2",slot="primary"},
 		{weapon="pulsar_photon",attach="gun3",slot="primary"},
+		{weapon="blaster_photon",attach="gun4",slot="secondary"},
+		{weapon="blaster_photon",attach="gun5",slot="secondary"},
 	},
 	{
 		{effect="gbfx_sprite_thrusteryellow",attach="thruster1"},	

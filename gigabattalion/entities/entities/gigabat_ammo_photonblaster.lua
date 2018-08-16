@@ -26,7 +26,24 @@ if SERVER then
 		end)
 	end
 
-	function ENT:Think() end
+	function ENT:Think()
+		local ply = self:GetOwner()
+		if IsValid(ply) then
+			local target = ply.gb_Target
+			if IsValid(target) then
+				if table.HasValue(GIGABAT.Config.TargetableEntities,target:GetClass()) then
+					if target:GetOwner() != ply then
+						local phys = self:GetPhysicsObject()
+						if IsValid(phys) then
+							local dir = -(self:GetPos()-target:GetPos())
+							phys:AddVelocity(dir/5)
+						end
+					end
+				end
+			end
+		end
+		return false
+	end
 
 
 	function ENT:PhysicsCollide(data, physobj)

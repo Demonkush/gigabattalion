@@ -28,7 +28,7 @@ GIGABAT.Functions.AddArsenal(
 		local bullet = {}
 		bullet.Attacker 	= att
 		bullet.Inflictor 	= gun
-		bullet.Damage		= math.random(8,12)
+		bullet.Damage		= math.random(12,14)
 		bullet.Distance 	= 16000
 		bullet.Amount 		= 1
 		bullet.Spread 		= 0.25

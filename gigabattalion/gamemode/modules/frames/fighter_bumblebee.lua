@@ -21,6 +21,7 @@ GIGABAT.Functions.AddFrame(
 		{weapon="pulsar_delta",attach="gun2",slot="primary"},
 		{weapon="pulsar_delta",attach="gun3",slot="primary"},
 		{weapon="pulsar_delta",attach="gun4",slot="primary"},
+		{weapon="laser_heavydelta",attach="gun5",slot="secondary"},		
 	},
 	{
 		{effect="gbfx_sprite_thrusterred",attach="thruster1"},	

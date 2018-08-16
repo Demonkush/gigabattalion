@@ -30,9 +30,22 @@ if SERVER then
 
 	function ENT:Think()
 		local phys = self:GetPhysicsObject()
-		if IsValid(phys) then
-			phys:SetVelocity(phys:GetVelocity()*5)
+		local ply = self:GetOwner()
+		if IsValid(ply) then
+			local target = ply.gb_Target
+			if IsValid(target) then
+				if table.HasValue(GIGABAT.Config.TargetableEntities,target:GetClass()) then
+					if target:GetOwner() != ply then
+						local phys = self:GetPhysicsObject()
+						if IsValid(phys) then
+							local dir = -(self:GetPos()-target:GetPos())
+							phys:AddVelocity(dir/1.5)
+						end
+					end
+				end
+			end
 		end
+
 		if self.Exploding then
 			local fx = EffectData() fx:SetOrigin(self:GetPos()) fx:SetScale(3)
 			fx:SetAngles(Angle(215,155,255))

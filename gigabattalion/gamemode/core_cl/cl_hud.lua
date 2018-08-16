@@ -263,12 +263,14 @@ net.Receive("GigabatSendKiller",function(len,pl)
 end)
 hook.Add("OnPlayerChat","GigabatOnChat",function(ply,strText,bTeam,bDead)
 	if IsValid(GIGABAT.Chat.Panel) then
-		local plyname = ply:Name()
-		local chatpanel = GIGABAT.Chat.Panel.msgs.msgs_txt
-		chatpanel:InsertColorChange(255,255,155,255)
-		chatpanel:AppendText(plyname..": ")
-		chatpanel:InsertColorChange(255,255,255,255)
-		chatpanel:AppendText(strText.."\n")
+		if IsValid(ply) then
+			local plyname = ply:Name()
+			local chatpanel = GIGABAT.Chat.Panel.msgs.msgs_txt
+			chatpanel:InsertColorChange(255,255,155,255)
+			chatpanel:AppendText(plyname..": ")
+			chatpanel:InsertColorChange(255,255,255,255)
+			chatpanel:AppendText(strText.."\n")
+		end
 	end
 end)
 hook.Add("PostDrawHUD","GigabatDrawHUD",GigabatDrawHUD)

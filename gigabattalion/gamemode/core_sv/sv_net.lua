@@ -47,10 +47,10 @@ net.Receive("GigabatSendShipSelect",function(len,pl)
 	local skin = net.ReadString()
 
 	if !table.HasValue(pl.gb_OwnedShips,ship) then
-		ship = "fighter_stingray"
+		ship = GIGABAT.Config.DefaultShip
 	end
 	if !table.HasValue(pl.gb_OwnedSkins,skin) then
-		skin = "common"
+		skin = GIGABAT.Config.DefaultSkin
 	end
 	GIGABAT.Functions.SetFrame(pl,ship)
 	pl:SetNWString("Gigabat_Skin",skin)

@@ -23,6 +23,7 @@ GIGABAT.Functions.AddFrame(
 		{weapon="pulsar_photon",attach="gun4",slot="primary"},
 		{weapon="pulsar_photon",attach="gun5",slot="primary"},
 		{weapon="pulsar_photon",attach="gun6",slot="primary"},
+		{weapon="mine_seeker",attach="gun7",slot="secondary"},
 	},
 	{
 		{effect="gbfx_sprite_thrusteryellow",attach="thruster1"},	

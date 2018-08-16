@@ -27,9 +27,20 @@ if SERVER then
 	end
 
 	function ENT:Think()
-		local phys = self:GetPhysicsObject()
-		if IsValid(phys) then
-			phys:SetVelocity(phys:GetVelocity()*5)
+		local ply = self:GetOwner()
+		if IsValid(ply) then
+			local target = ply.gb_Target
+			if IsValid(target) then
+				if table.HasValue(GIGABAT.Config.TargetableEntities,target:GetClass()) then
+					if target:GetOwner() != ply then
+						local phys = self:GetPhysicsObject()
+						if IsValid(phys) then
+							local dir = -(self:GetPos()-target:GetPos())
+							phys:AddVelocity(dir/4)
+						end
+					end
+				end
+			end
 		end
 		return false
 	end
@@ -89,13 +100,13 @@ if CLIENT then
 		render.SetMaterial(glow)
 		render.DrawSprite(self:GetPos(),thrustrand,thrustrand,Color(255,215,155,255))
 
-
+		local dir = -self:GetVelocity()
 		if RealTime() > self.NextEmit then
 			local emitter = self.Emitter
 			emitter:SetPos(self:GetPos())
 
-			local particle = emitter:Add("sprites/glow04_noz", self:GetPos()+(self:GetForward()*-256) )
-			particle:SetVelocity( self:GetForward()*5000 )
+			local particle = emitter:Add("sprites/glow04_noz", self:GetPos() )
+			particle:SetVelocity(dir*2)
 			particle:SetDieTime(0.5)
 			particle:SetStartAlpha(255)
 			particle:SetEndAlpha(0)

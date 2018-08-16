@@ -1,9 +1,9 @@
 CreateClientConVar("gigabat_garagebackdrop","garage",true,false)
-CreateClientConVar("gigabat_selectedship","fighter_stingray",true,false)
-CreateClientConVar("gigabat_selectedskin","common",true,false)
+CreateClientConVar("gigabat_selectedship",GIGABAT.Config.DefaultShip,true,false)
+CreateClientConVar("gigabat_selectedskin",GIGABAT.Config.DefaultSkin,true,false)
 LocalPlayer().gb_Stats = {}
-LocalPlayer().gb_OwnedShips = {"fighter_stingray"}
-LocalPlayer().gb_OwnedSkins = {"common"}
+LocalPlayer().gb_OwnedShips = {GIGABAT.Config.DefaultShip}
+LocalPlayer().gb_OwnedSkins = {GIGABAT.Config.DefaultSkin}
 
 GIGABAT.Garage = {}
 GIGABAT.Garage.Core = nil
@@ -975,8 +975,15 @@ function GIGABAT.Functions.OpenGarage()
 		local core = GIGABAT.Garage.Core
 		core:Show()
 		gui.EnableScreenClicker(true)
-		GIGABAT.Garage.SelectedShip = "fighter_stingray"
-		GIGABAT.Garage.SelectedSkin = "common"
+		GIGABAT.Garage.SelectedShip = GIGABAT.Config.DefaultShip
+		GIGABAT.Garage.SelectedSkin = GIGABAT.Config.DefaultSkin
+
+		if LocalPlayer().gb_OwnedShips == nil then
+			LocalPlayer().gb_OwnedShips = {GIGABAT.Config.DefaultShip}
+		end
+		if LocalPlayer().gb_OwnedSkins == nil then
+			LocalPlayer().gb_OwnedSkins = {GIGABAT.Config.DefaultSkin}
+		end
 		if table.HasValue(LocalPlayer().gb_OwnedShips,GetConVar("gigabat_selectedship"):GetString()) then
 			GIGABAT.Garage.SelectedShip = GetConVar("gigabat_selectedship"):GetString()
 		end

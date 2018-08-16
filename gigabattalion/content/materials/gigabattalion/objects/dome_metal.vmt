@@ -1,0 +1,5 @@
+"LightmappedGeneric"
+{
+	"$basetexture" "gigabattalion/objects/dome_metal"
+	"$surfaceprop" "metal"
+}

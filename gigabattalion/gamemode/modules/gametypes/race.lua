@@ -3,6 +3,7 @@ GIGABAT.Functions.AddGametype("rally",
 	{
 		"startrack",
 		"derelict2",
+		"phaseway"
 	},
 	function()
 		GIGABAT.Config.ObjectiveTitle = "Follow the Waypoints"

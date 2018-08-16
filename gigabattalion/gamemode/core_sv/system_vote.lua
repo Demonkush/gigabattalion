@@ -71,7 +71,7 @@ net.Receive("GigabatSendScenarioVote",function(len,pl)
 end)
 function GIGABAT.Functions.BuildScenarioList()
 	if GIGABAT.Vote.NextGameType == "none" then
-		GIGABAT.Vote.NextGameType = "dogfight"
+		GIGABAT.Vote.NextGameType = "classic"
 	end
 	local scenarios = GIGABAT.Gametypes[GIGABAT.Vote.NextGameType].scenarios
 	for a, b in pairs(GIGABAT.Scenario) do

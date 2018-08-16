@@ -10,8 +10,9 @@ function EFFECT:Init(data)
 
 	self.OldPos = Vector(0,0,0)
 
-	self.Entity:SetRenderBoundsWS(self.StartPos,self.EndPos)
-
+	if IsValid(self.Entity) then
+		self.Entity:SetRenderBoundsWS(self.StartPos,self.EndPos)
+	end
 	local diff = self.EndPos-self.StartPos
 	self.Dir = diff:GetNormal()
 end
@@ -32,6 +33,8 @@ function EFFECT:Think()
 			self.EndPos = LerpVector(FrameTime()*8,self.OldPos,tr.HitPos)
 		end
 		self.OldPos = self.EndPos
+	else
+		return false
 	end
 	return self.Life > 0
 end
